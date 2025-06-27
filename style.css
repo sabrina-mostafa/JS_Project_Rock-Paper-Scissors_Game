@@ -3,16 +3,48 @@
     padding: 0;
     box-sizing: border-box;
     text-align: center;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+    color: #f0f4f8;
 }
 
 h1 {
     background-color: #081b31;
-    color: white;
-    font-size: 2.5rem;
+    color: #f0f4f8;
+    font-size: 2.8rem;
     height: 7rem;
     line-height: 7rem;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    margin-bottom: 3rem;
 }
 
+/* Choices Container */
+.choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    max-width: 650px;
+    width: 100%;
+}
+
+/* Choice circles */
 .choice {
     height: 165px;
     width: 165px;
@@ -20,50 +52,162 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.choice:hover {
-    background-color: #081b31;
+    background-color: #183c5e;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    position: relative;
+    user-select: none;
 }
 
+.choice:hover,
+.choice:focus {
+    background-color: #0a2946;
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    outline: none;
+}
+
+/* Add a subtle pulse animation on click */
+.choice:active {
+    animation: pulse 0.3s ease forwards;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1.05) rotate(5deg);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+    50% {
+        transform: scale(0.95) rotate(-5deg);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        transform: scale(1.05) rotate(5deg);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Images inside choices */
 img {
     height: 150px;
     width: 150px;
     object-fit: cover;
     border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    user-select: none;
+    pointer-events: none;
 }
 
-.choices {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    margin-top: 5rem;
-}
-
+/* Score Board */
 .score-board {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-top: 3rem;
-    gap: 5rem;
+    gap: 6rem;
+    max-width: 500px;
+    width: 100%;
+    user-select: none;
 }
 
-#user-score, #comp-score {
-    font-size: 4rem;
+#user-score,
+#comp-score {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffd700aa;
+    transition: color 0.3s ease;
 }
 
+/* Add a glow effect when scores update */
+/* You can toggle a class like `.score-update` in JS */
+.score-update {
+    animation: glow 1s ease forwards;
+}
+
+@keyframes glow {
+    0%, 100% {
+        color: #ffd700;
+        text-shadow: 0 0 10px #ffd700aa;
+    }
+    50% {
+        color: #fff;
+        text-shadow: 0 0 20px #fff;
+    }
+}
+
+/* Message container */
 .msg-container {
     margin-top: 5rem;
 }
 
 .msg {
-    background-color: #081b31;
-    color: white;
+    background-color: #081b31cc;
+    color: #f0f4f8;
     font-size: 2rem;
-    display: inline;
-    padding: 1rem;
+    display: inline-block;
+    padding: 1rem 2rem;
     border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    user-select: none;
+    transition: background-color 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 700px) {
+    .choice {
+        height: 130px;
+        width: 130px;
+    }
+
+    img {
+        height: 120px;
+        width: 120px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        height: 5rem;
+        line-height: 5rem;
+    }
+
+    .score-board {
+        font-size: 1.8rem;
+        gap: 3rem;
+    }
+
+    #user-score,
+    #comp-score {
+        font-size: 3.2rem;
+    }
+
+    .msg {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .choices {
+        gap: 1.5rem;
+    }
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 5px #fff8dc, 0 0 10px #00fff7, 0 0 20px #00fff7, 0 0 30px #00adb5, 0 0 40px #00adb5;
+    color: #00fff7;
+  }
+  50% {
+    text-shadow: none;
+    color: #fff8dc;
+  }
+}
+
+.score-update {
+  animation: glow 1s ease forwards;
 }
